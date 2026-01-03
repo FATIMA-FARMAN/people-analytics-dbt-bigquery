@@ -2,3 +2,18 @@
 target/
 dbt_packages/
 logs/
+
+# Python venv
+venv/
+.venv/
+dbt_venv/
+airflow_venv/
+
+# dbt build artifacts
+target/
+dbt_packages/
+logs/
+
+# OS / editor
+.DS_Store
+.vscode/
