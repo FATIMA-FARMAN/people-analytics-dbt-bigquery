@@ -1,0 +1,14 @@
+people_analytics_dbt:
+  outputs:
+    dev:
+      dataset: dbt --version
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      keyfile: cd /workspaces/fintech-data-domain-ownership
+      location: US
+      method: service-account
+      priority: interactive
+      project: source .venv/bin/activate
+      threads: 4
+      type: bigquery
+  target: dev
