@@ -1,19 +1,19 @@
-
-target/
-dbt_packages/
-logs/
-
-# Python venv
-venv/
+clean/
+recreate/
 .venv/
-dbt_venv/
+venv/
+env/
 airflow_venv/
-
-# dbt build artifacts
+bin/
+lib/
+include/
+share/
+pyvenv.cfg
+airflow_home/
+logs/
+*.log
 target/
 dbt_packages/
-logs/
-
-# OS / editor
 .DS_Store
 .vscode/
+.idea/
