@@ -1,19 +1,22 @@
-clean/
-recreate/
-.venv/
+# Python virtual envs
 venv/
+.venv/
 env/
 airflow_venv/
-bin/
-lib/
-include/
-share/
-pyvenv.cfg
-airflow_home/
-logs/
-*.log
+__pycache__/
+*.pyc
+
+# dbt artifacts
 target/
 dbt_packages/
+logs/
+
+# OS / IDE
 .DS_Store
 .vscode/
 .idea/
+
+# your local scratch folders (project-specific)
+clean/
+recreate/
+airflow_home/
