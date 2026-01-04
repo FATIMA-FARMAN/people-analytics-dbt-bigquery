@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: hr
+    database: "<YOUR_GCP_PROJECT_ID>"
+    schema: "<YOUR_RAW_DATASET_NAME>"
+    tables:
+      - name: employees
+      - name: departments
+
+  - name: recruiting
+    database: "<YOUR_GCP_PROJECT_ID>"
+    schema: "<YOUR_RAW_DATASET_NAME>"
+    tables:
+      - name: hiring_events
