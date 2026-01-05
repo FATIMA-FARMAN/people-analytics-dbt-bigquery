@@ -2,14 +2,27 @@ version: 2
 
 sources:
   - name: hr
-    database: "<YOUR_GCP_PROJECT_ID>"
-    schema: "<YOUR_RAW_DATASET_NAME>"
+    database: core-rhythm-462516-n5
+    schema: people_analytics
     tables:
       - name: employees
-      - name: departments
+        identifier: stg_hris_employees
+
+      - name: terminations
+        identifier: stg_hris_terminations
 
   - name: recruiting
-    database: "<YOUR_GCP_PROJECT_ID>"
-    schema: "<YOUR_RAW_DATASET_NAME>"
+    database: core-rhythm-462516-n5
+    schema: people_analytics
     tables:
-      - name: hiring_events
+      - name: applications
+        identifier: stg_ats_applications
+
+      - name: offers
+        identifier: stg_ats_offers
+
+      - name: requisitions
+        identifier: stg_ats_requisitions
+
+      - name: stage_events
+        identifier: stg_ats_stage_events

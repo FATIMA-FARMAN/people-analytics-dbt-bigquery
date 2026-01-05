@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: stg_employees
+    columns:
+      - name: employee_id
+        tests:
+          - not_null
+          - unique
+      - name: department
+        tests:
+          - not_null
+      - name: hire_date
+        tests:
+          - not_null

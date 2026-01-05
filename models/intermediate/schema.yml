@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: int_employees
+    columns:
+      - name: employee_id
+        tests:
+          - not_null
+          - unique

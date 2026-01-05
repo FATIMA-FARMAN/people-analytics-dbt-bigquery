@@ -2,31 +2,11 @@ version: 2
 
 models:
   - name: dim_employee
-    description: >
-      Employee dimension table with Slowly Changing Dimension (Type 2).
-      Contains one row per employee per attribute change.
-      Grain: one row per employee per change period.
-
-    meta:
-      owner:
-        team: people-analytics
-        role: data-partner
-        contact: fatima.farman
-      domain: people
-      pii: true
-      tier: gold
-      contract:
-        enforced: true
-        grain: one row per employee per SCD change
-        guarantees:
-          - No duplicate active employee records
-          - Historical employee attributes preserved (Type 2)
-          - Safe for executive workforce reporting
-
     columns:
       - name: employee_id
         tests:
           - not_null
+          - unique
 
       - name: valid_from
         tests:
@@ -38,48 +18,3 @@ models:
             combination_of_columns:
               - employee_id
               - valid_from
-
-  - name: fct_hiring_funnel
-    description: >
-      Hiring funnel fact table.
-      Grain: one row per application per hiring stage.
-
-    meta:
-      owner:
-        team: people-analytics
-        role: data-partner
-        contact: fatima.farman
-      domain: people
-      pii: false
-      tier: gold
-      contract:
-        enforced: true
-        grain: one row per application per hiring stage
-        guarantees:
-          - No duplicate application-stage records
-          - Funnel stages follow defined lifecycle
-          - Safe for executive hiring metrics
-
-    columns:
-      - name: application_id
-        tests:
-          - not_null
-
-      - name: stage
-        tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values:
-                  - applied
-                  - interview
-                  - offer
-                  - hire
-                  - rejected
-
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          arguments:
-            combination_of_columns:
-              - application_id
-              - stage
