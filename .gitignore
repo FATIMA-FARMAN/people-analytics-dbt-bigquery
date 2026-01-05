@@ -20,3 +20,17 @@ logs/
 clean/
 recreate/
 airflow_home/
+
+# Local environments
+.venv/
+venv/
+.venv_*/
+*.venv/
+
+# dbt artifacts
+logs/
+target/
+dbt_packages/
+
+# macOS
+.DS_Store
