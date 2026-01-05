@@ -18,3 +18,12 @@ models:
             combination_of_columns:
               - employee_id
               - valid_from
+  - name: dim_employee_scd2
+    description: "SCD2 employee dimension built from dbt snapshot snap_employees."
+    columns:
+      - name: employee_id
+        tests:
+          - not_null
+      - name: valid_from
+        tests:
+          - not_null
