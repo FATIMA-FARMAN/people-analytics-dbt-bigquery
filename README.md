@@ -21,3 +21,11 @@ This repository demonstrates an analytics engineering workflow using **dbt** on 
 Add screenshots into `docs/screenshots/` and reference them here (Airflow UI run, dbt run graph, BigQuery tables/views).
 ## Proof (Git Clean State)
 ![git status clean](docs/screenshots/01_git_status_clean.png)
+
+## Airflow Orchestration Proof
+
+**Airflow DAGs registered**
+![Airflow DAGs list](docs/screenshots/02_airflow_dags_list.png)
+
+**Successful run**
+![Airflow run success](docs/screenshots/03_airflow_run_success.png)
