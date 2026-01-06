@@ -33,3 +33,6 @@ recreate/
 
 # Local DuckDB
 people_analytics.duckdb
+
+# Local DuckDB
+people_analytics.duckdb
