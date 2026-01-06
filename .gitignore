@@ -36,3 +36,12 @@ people_analytics.duckdb
 
 # Local DuckDB
 people_analytics.duckdb
+
+# dbt local user state
+.profiles/user.yml
+
+# dbt local user state
+.profiles/user.yml
+
+# dbt local user state
+.profiles/user.yml
