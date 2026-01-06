@@ -1,46 +1,29 @@
-# Python virtual envs
-venv/
-.venv/
-env/
-airflow_venv/
-__pycache__/
-*.pyc
-
-# dbt artifacts
-target/
-dbt_packages/
-logs/
-
-# OS / IDE
-.DS_Store
-.vscode/
-.idea/
-
-# your local scratch folders (project-specific)
-clean/
-recreate/
-airflow_home/
-
-# Local environments
-.venv/
-venv/
-.venv_*/
-*.venv/
-
-# dbt artifacts
-logs/
-target/
-dbt_packages/
-airflow_home/logs/
-*.log
-
-# OS / IDE
-.DS_Store
-.vscode/
-.idea/
-
-# project scratch folders
-clean/
-recreate/
 # macOS
 .DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# dbt artifacts
+target/
+dbt_packages/
+logs/
+
+# Airflow local
+airflow_home/
+
+# Project scratch (repo root only)
+ /clean/
+ /recreate/
+ /screenshots/
