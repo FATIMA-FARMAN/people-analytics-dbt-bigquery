@@ -29,3 +29,9 @@ Add screenshots into `docs/screenshots/` and reference them here (Airflow UI run
 
 **Successful run**
 ![Airflow run success](docs/screenshots/03_airflow_run_success.png)
+
+## Airflow Orchestration Proof (Local)
+
+Airflow DAG executed successfully (dbt deps → dbt run → dbt test):
+
+![Airflow DAG Proof](docs/screenshots/08_airflow_ui_dag_loaded.png)
