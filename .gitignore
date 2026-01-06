@@ -27,3 +27,6 @@ airflow_home/
  /clean/
  /recreate/
  /screenshots/
+.venv_duckdb/
+clean/
+recreate/
