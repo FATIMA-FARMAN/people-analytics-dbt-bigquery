@@ -30,3 +30,6 @@ airflow_home/
 .venv_duckdb/
 clean/
 recreate/
+
+# Local DuckDB
+people_analytics.duckdb

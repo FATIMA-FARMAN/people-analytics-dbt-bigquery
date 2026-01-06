@@ -1,0 +1,8 @@
+people_analytics_dbt:
+  target: duckdb
+  outputs:
+    duckdb:
+      type: duckdb
+      path: people_analytics.duckdb
+      schema: main
+      threads: 4
