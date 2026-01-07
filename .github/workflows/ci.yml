@@ -1,0 +1,32 @@
+name: dbt CI (PR checks)
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+jobs:
+  dbt-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dbt
+        run: |
+          python -m pip install --upgrade pip
+          pip install "dbt-core==1.11.2" "dbt-bigquery==1.11.0"
+
+      - name: dbt deps
+        run: |
+          dbt deps --project-dir . --profiles-dir .github/profiles --no-use-colors
+
+      - name: dbt parse
+        run: |
+          dbt parse --project-dir . --profiles-dir .github/profiles --no-use-colors

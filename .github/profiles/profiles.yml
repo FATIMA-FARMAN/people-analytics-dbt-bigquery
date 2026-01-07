@@ -1,0 +1,10 @@
+people_analytics_dbt:
+  target: ci
+  outputs:
+    ci:
+      type: bigquery
+      method: oauth
+      project: dummy-project
+      dataset: dummy_dataset
+      threads: 1
+      location: US
