@@ -42,26 +42,35 @@ Airflow DAG executed successfully (dbt deps → dbt run → dbt test):
 
 ## Cost-aware warehouse notes (BigQuery)
 
-This project is structured to demonstrate cost-aware analytics engineering patterns on BigQuery:
+This repository is intentionally structured to showcase **cost-aware analytics engineering** on BigQuery—optimizing for **low bytes scanned**, **minimal storage duplication**, and **fast BI performance**.
 
-- **Materialization strategy**
-  - **Staging models** are kept lightweight (typically **views**) to avoid unnecessary storage duplication.
-  - **Intermediate models** are materialized as **tables** only where it reduces repeated compute (reused joins/transformations).
-  - **Mart models (dim/fct)** are designed for BI consumption and can be **views** (low-storage) or **tables** (faster BI) depending on use-case.
+### Materialization strategy
+- **Staging (`stg_*`)**: materialized as **views** to keep the warehouse lightweight and avoid duplicating raw/source data.
+- **Intermediate (`int_*`)**: materialized as **tables only when it pays off** (reused joins/transforms that would otherwise be recomputed).
+- **Marts (`dim_*`, `fct_*`)**: tuned for consumption:
+  - Use **views** when you want low storage and acceptable latency.
+  - Use **tables** when you need consistent dashboard performance or heavy reuse.
 
-- **Query efficiency**
-  - Prefer selecting only required columns (avoid `SELECT *`) in marts to reduce scanned bytes.
-  - Build reusable intermediate tables for expensive joins to prevent repeated recomputation across multiple marts.
+### Query efficiency principles
+- Avoid `SELECT *` in marts; project only required columns to reduce **bytes scanned**.
+- Centralize expensive logic into **reusable intermediate tables** to prevent repeated recomputation across marts.
+- Prefer **BI-friendly marts** to reduce query complexity and improve interactive performance.
 
-- **Partitioning & clustering (recommended for production scale)**
-  - For large facts (e.g., `fct_*`), partition by a date column (e.g., `event_date`, `snapshot_date`) and cluster by common filter/join keys (e.g., `employee_id`, `department_id`) to reduce scan cost and improve performance.
+### Partitioning & clustering (production pattern)
+For large fact tables (e.g., `fct_*`):
+- **Partition** by a date column (e.g., `event_date`, `snapshot_date`) to reduce scanned partitions.
+- **Cluster** by common filter/join keys (e.g., `employee_id`, `department_id`) to improve pruning and join efficiency.
+- Result: **lower scan cost + faster interactive queries**.
 
-- **Sandbox / billing note**
-  - BigQuery Sandbox can restrict certain DML operations; snapshot-style SCD2 maintenance may require billing-enabled projects.
-  - This repo includes **local proof (DuckDB)** for incremental/SCD2 patterns where warehouse DML is restricted.
+### Sandbox / billing constraints
+- BigQuery Sandbox may restrict some **DML** operations; **snapshot-style SCD2** workflows may require a billing-enabled project.
+- This repo includes **local proof (DuckDB)** for incremental/SCD2 patterns when warehouse DML is restricted, while keeping the BigQuery structure aligned with production best practices.
 
-- **CI as a cost guardrail**
-  - GitHub Actions runs **`dbt parse` + `dbt deps`** (and optionally targeted `dbt test`) to catch issues early without running full warehouse refreshes on every change.
+### CI as a cost guardrail
+To avoid unnecessary warehouse spend on every change:
+- GitHub Actions runs **`dbt deps` + `dbt parse`** as a lightweight validation gate.
+- Optionally run **targeted `dbt test`** on key marts (primary keys + relationships) instead of full refreshes.
+
 
 
 ```mermaid
