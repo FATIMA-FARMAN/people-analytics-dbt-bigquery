@@ -40,6 +40,30 @@ Airflow DAG executed successfully (dbt deps → dbt run → dbt test):
 ![dbt CI (PR checks)](https://github.com/FATIMA-FARMAN/people-analytics-dbt-bigquery/actions/workflows/ci.yml/badge.svg)
 ![dbt CI (PR checks)](https://github.com/FATIMA-FARMAN/people-analytics-dbt-bigquery/actions/workflows/ci.yml/badge.svg)
 
+## Cost-aware warehouse notes (BigQuery)
+
+This project is structured to demonstrate cost-aware analytics engineering patterns on BigQuery:
+
+- **Materialization strategy**
+  - **Staging models** are kept lightweight (typically **views**) to avoid unnecessary storage duplication.
+  - **Intermediate models** are materialized as **tables** only where it reduces repeated compute (reused joins/transformations).
+  - **Mart models (dim/fct)** are designed for BI consumption and can be **views** (low-storage) or **tables** (faster BI) depending on use-case.
+
+- **Query efficiency**
+  - Prefer selecting only required columns (avoid `SELECT *`) in marts to reduce scanned bytes.
+  - Build reusable intermediate tables for expensive joins to prevent repeated recomputation across multiple marts.
+
+- **Partitioning & clustering (recommended for production scale)**
+  - For large facts (e.g., `fct_*`), partition by a date column (e.g., `event_date`, `snapshot_date`) and cluster by common filter/join keys (e.g., `employee_id`, `department_id`) to reduce scan cost and improve performance.
+
+- **Sandbox / billing note**
+  - BigQuery Sandbox can restrict certain DML operations; snapshot-style SCD2 maintenance may require billing-enabled projects.
+  - This repo includes **local proof (DuckDB)** for incremental/SCD2 patterns where warehouse DML is restricted.
+
+- **CI as a cost guardrail**
+  - GitHub Actions runs **`dbt parse` + `dbt deps`** (and optionally targeted `dbt test`) to catch issues early without running full warehouse refreshes on every change.
+
+
 ```mermaid
 flowchart TB
 
@@ -85,3 +109,4 @@ flowchart TB
   INT_EMP --> DIM_EMP
   INT_FUN --> FCT_FUN
   DIM_EMP --> FCT_FUN
+
