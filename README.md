@@ -35,47 +35,51 @@ Add screenshots into `docs/screenshots/` and reference them here (Airflow UI run
 Airflow DAG executed successfully (dbt deps → dbt run → dbt test):
 
 ![Airflow DAG Proof](docs/screenshots/08_airflow_ui_dag_loaded.png)
+
+![dbt CI (PR checks)](https://github.com/FATIMA-FARMAN/people-analytics-dbt-bigquery/actions/workflows/ci.yml/badge.svg)
+
+```mermaid
 flowchart TB
-  A[Airflow DAG<br/>dag_dbt_people_domain] --> B[dbt deps]
-  B --> C[dbt run]
-  C --> D[dbt test]
 
-  subgraph SRC[Sources]
-    S1[(HRIS)]
-    S2[(ATS)]
-    S3[(Performance)]
-    S4[(Compensation)]
+  subgraph ORCH["Airflow Orchestration"]
+    DAG["dag_dbt_people_domain"] --> DEPS["dbt deps"] --> RUN["dbt run"] --> TEST["dbt test"]
   end
 
-  subgraph STG[Staging]
-    ST1[stg_hris_employees]
-    ST2[stg_ats_candidates]
-    ST3[stg_perf_reviews]
-    ST4[stg_comp_salaries]
+  subgraph SRC["Sources"]
+    HRIS["HRIS"]
+    ATS["ATS"]
+    PERF["Performance"]
+    COMP["Compensation"]
   end
 
-  subgraph INT[Intermediate]
-    I1[int_employee_enriched]
-    I2[int_hiring_funnel_steps]
+  subgraph STG["Staging"]
+    STG_HRIS["stg_hris_employees"]
+    STG_ATS["stg_ats_candidates"]
+    STG_PERF["stg_perf_reviews"]
+    STG_COMP["stg_comp_salaries"]
   end
 
-  subgraph MART[Marts]
-    M1[dim_employee]
-    M2[fct_hiring_funnel]
+  subgraph INT["Intermediate"]
+    INT_EMP["int_employee_enriched"]
+    INT_FUN["int_hiring_funnel_steps"]
   end
 
-  S1 --> ST1
-  S2 --> ST2
-  S3 --> ST3
-  S4 --> ST4
+  subgraph MART["Marts"]
+    DIM_EMP["dim_employee"]
+    FCT_FUN["fct_hiring_funnel"]
+  end
 
-  ST1 --> I1
-  ST3 --> I1
-  ST2 --> I2
+  HRIS --> STG_HRIS
+  ATS --> STG_ATS
+  PERF --> STG_PERF
+  COMP --> STG_COMP
 
-  I1 --> M1
-  I2 --> M2
+  STG_HRIS --> INT_EMP
+  STG_PERF --> INT_EMP
+  STG_COMP --> INT_EMP
 
-  D --> MART
+  STG_ATS --> INT_FUN
 
-![dbt CI](https://github.com/FATIMA-FARMAN/people-analytics-dbt-bigquery/actions/workflows/ci.yml/badge.svg)
+  INT_EMP --> DIM_EMP
+  INT_FUN --> FCT_FUN
+  DIM_EMP --> FCT_FUN
