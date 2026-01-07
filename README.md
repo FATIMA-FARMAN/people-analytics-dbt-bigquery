@@ -71,11 +71,6 @@ To avoid unnecessary warehouse spend on every change:
 - GitHub Actions runs **`dbt deps` + `dbt parse`** as a lightweight validation gate.
 - Optionally run **targeted `dbt test`** on key marts (primary keys + relationships) instead of full refreshes.
 
-### CI as a cost guardrail
-
-- GitHub Actions runs **`dbt parse`** + **`dbt deps`** (and optionally targeted **`dbt test`**) to catch issues early without triggering full warehouse refreshes on every change.
-- This keeps CI fast and reduces unnecessary BigQuery scans while still enforcing a quality gate on pull requests.
-
 
 
 ```mermaid
