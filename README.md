@@ -38,10 +38,13 @@ Airflow DAG executed successfully (dbt deps → dbt run → dbt test):
 
 ![dbt CI (PR checks)](https://github.com/FATIMA-FARMAN/people-analytics-dbt-bigquery/actions/workflows/ci.yml/badge.svg)
 ![dbt CI (PR checks)](https://github.com/FATIMA-FARMAN/people-analytics-dbt-bigquery/actions/workflows/ci.yml/badge.svg)
+![dbt CI (PR checks)](https://github.com/FATIMA-FARMAN/people-analytics-dbt-bigquery/actions/workflows/ci.yml/badge.svg)
 
 ```mermaid
 flowchart TB
-  A["Airflow DAG"] --> B["dbt deps"] --> C["dbt run"] --> D["dbt test"]
+
+  subgraph ORCH["Airflow Orchestration"]
+    DAG["dag_dbt_people_domain"] --> DEPS["dbt deps"] --> RUN["dbt run"] --> TEST["dbt test"]
   end
 
   subgraph SRC["Sources"]
