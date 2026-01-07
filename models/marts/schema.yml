@@ -2,28 +2,45 @@ version: 2
 
 models:
   - name: dim_employee
+    description: "Employee dimension (SCD-style). One row per employee version."
+    config:
+      contract:
+        enforced: true
     columns:
       - name: employee_id
+        description: "Natural employee identifier."
+        data_type: INT64
         tests:
           - not_null
-          - unique
-
       - name: valid_from
+        description: "Start timestamp for this employee version."
+        data_type: TIMESTAMP
         tests:
           - not_null
 
     tests:
-      - dbt_utils.unique_combination_of_columns:
-          arguments:
-            combination_of_columns:
-              - employee_id
-              - valid_from
-  - name: dim_employee_scd2
-    description: "SCD2 employee dimension built from dbt snapshot snap_employees."
+      - unique_combo:
+          combination_of_columns: ["employee_id", "valid_from"]
+
+  - name: fct_hiring_funnel
+    description: "Hiring funnel fact: one row per application stage event."
+    config:
+      contract:
+        enforced: true
     columns:
-      - name: employee_id
+      - name: application_id
+        description: "Unique identifier for a job application."
+        data_type: INT64
         tests:
           - not_null
-      - name: valid_from
+      - name: stage
+        description: "Funnel stage label (e.g., applied/interview/offer/hired)."
+        data_type: STRING
         tests:
           - not_null
+          - not_empty_string
+
+    tests:
+      - unique_combo:
+          combination_of_columns: ["application_id", "stage"]
+
