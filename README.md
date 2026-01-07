@@ -35,3 +35,5 @@ Add screenshots into `docs/screenshots/` and reference them here (Airflow UI run
 Airflow DAG executed successfully (dbt deps → dbt run → dbt test):
 
 ![Airflow DAG Proof](docs/screenshots/08_airflow_ui_dag_loaded.png)
+
+![dbt CI](https://github.com/FATIMA-FARMAN/people-analytics-dbt-bigquery/actions/workflows/ci.yml/badge.svg)
