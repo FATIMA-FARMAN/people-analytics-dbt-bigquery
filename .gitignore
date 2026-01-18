@@ -9,11 +9,15 @@
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
+.ipynb_checkpoints/
 
 # Virtual envs
-.venv/
 venv/
+.venv/
 env/
+dbt_venv/
+airflow_venv/
 
 # dbt artifacts
 target/
@@ -23,29 +27,15 @@ logs/
 # Airflow local
 airflow_home/
 
+# Local DuckDB
+*.duckdb
+
+# Secrets
+*.json
+.env
+
 # Project scratch (repo root only)
- /clean/
- /recreate/
- /screenshots/
-.venv_duckdb/
 clean/
 recreate/
+screenshots/
 
-# Local DuckDB
-people_analytics.duckdb
-
-# Local DuckDB
-people_analytics.duckdb
-
-# dbt local user state
-.profiles/user.yml
-
-# dbt local user state
-.profiles/user.yml
-
-# dbt local user state
-.profiles/user.yml
-
-# dbt local user state
-.profiles/user.yml
-.profiles/.user.yml
