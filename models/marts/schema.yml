@@ -22,25 +22,31 @@ models:
       - unique_combo:
           combination_of_columns: ["employee_id", "valid_from"]
 
-  - name: fct_hiring_funnel
-    description: "Hiring funnel fact: one row per application stage event."
-    config:
-      contract:
-        enforced: true
+  - name: fct_funnel_conversion_daily
+    description: "Daily funnel stage-to-next-stage conversion rate based on candidate stage events."
     columns:
-      - name: application_id
-        description: "Unique identifier for a job application."
-        data_type: INT64
+      - name: event_date
+        description: "Date of the funnel events."
         tests:
           - not_null
-      - name: stage
-        description: "Funnel stage label (e.g., applied/interview/offer/hired)."
-        data_type: STRING
-        tests:
-          - not_null
-          - not_empty_string
 
-    tests:
-      - unique_combo:
-          combination_of_columns: ["application_id", "stage"]
+      - name: from_stage
+        description: "Stage the candidate is converting from (e.g., Applied)."
+        tests:
+          - not_null
+
+      - name: to_stage
+        description: "Next stage (e.g., Screen)."
+        tests:
+          - not_null
+
+      - name: entered_candidates
+        description: "Number of distinct candidates who entered the stage on that day."
+        tests:
+          - not_null
+
+      - name: progressed_candidates
+        description: "Number of distinct candidates who progressed to next stage on that day."
+        tests:
+          - not_null
 
