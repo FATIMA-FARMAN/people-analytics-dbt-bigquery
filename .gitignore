@@ -39,3 +39,4 @@ clean/
 recreate/
 screenshots/
 
+.profiles/.user.yml
