@@ -3,6 +3,32 @@
 ## Overview
 This repository demonstrates an analytics engineering workflow using **dbt** on **BigQuery** and orchestration via an **Airflow DAG**.
 
+## KPI definitions (business-ready)
+
+This project builds a trusted KPI layer for funnel reporting using analytics engineering patterns (staging → intermediate → marts). The KPIs are designed to be stable, testable, and dashboard-ready.
+
+| KPI | What it answers | Definition | Grain |
+|---|---|---|---|
+| Funnel conversion rate | Where do candidates drop? | % moving from one stage to the next (e.g., Applied → Screen → Interview → Offer → Hired) | Daily / Weekly |
+| Stage drop-off rate | Which stage is bottleneck? | % lost at each stage (1 - stage conversion rate) | Daily / Weekly |
+| Cohort retention | Is performance improving? | Retention % by cohort period (e.g., hired cohort retained in week 1/4) | Weekly / Monthly |
+
+## Deliverables (portfolio completion checklist)
+
+- [ ] Staging models (clean + typed): `stg_*`
+- [ ] Intermediate models (reusable joins/logic): `int_*`
+- [ ] Marts: `dim_*`, `fct_*`
+- [ ] KPI marts: funnel conversion, stage drop-off, cohort retention
+- [ ] Tests + contracts in `schema.yml`
+- [ ] Documentation + model descriptions
+- [ ] Dashboard screenshot
+- [ ] Proof screenshots: `dbt run`, `dbt test`, lineage, dashboard
+
+## Outcome
+
+By the end of this project, the repository will provide a complete analytics engineering case study that produces a governed KPI layer (funnel conversion, drop-off, and cohort retention). The output is designed to power executive reporting and dashboards with consistent metric definitions, automated tests, and clear documentation.
+
+
 ## Key artifacts
 - `dags/dag_dbt_payments_domain.py` — Airflow DAG that triggers dbt runs
 - `models/` — dbt models (staging → intermediate → marts)
