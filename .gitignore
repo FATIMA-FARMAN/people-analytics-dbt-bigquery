@@ -40,3 +40,4 @@ recreate/
 screenshots/
 
 .profiles/.user.yml
+lib/
