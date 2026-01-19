@@ -12,6 +12,7 @@ models:
         data_type: INT64
         tests:
           - not_null
+
       - name: valid_from
         description: "Start timestamp for this employee version."
         data_type: TIMESTAMP
@@ -21,6 +22,28 @@ models:
     tests:
       - unique_combo:
           combination_of_columns: ["employee_id", "valid_from"]
+
+  - name: fct_hiring_funnel
+    description: "Hiring funnel fact: one row per application stage event."
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: application_id
+        description: "Unique identifier for a job application."
+        data_type: INT64
+        tests:
+          - not_null
+
+      - name: stage
+        description: "Funnel stage label (e.g., applied/interview/offer/hired)."
+        data_type: STRING
+        tests:
+          - not_null
+
+    tests:
+      - unique_combo:
+          combination_of_columns: ["application_id", "stage"]
 
   - name: fct_funnel_conversion_daily
     description: "Daily funnel stage-to-next-stage conversion rate based on candidate stage events."
@@ -47,6 +70,57 @@ models:
 
       - name: progressed_candidates
         description: "Number of distinct candidates who progressed to next stage on that day."
+        tests:
+          - not_null
+
+  - name: fct_stage_dropoff_daily
+    description: "Daily stage drop-off rate per stage (1 - progression rate)."
+    columns:
+      - name: event_date
+        description: "Date of the funnel events."
+        tests:
+          - not_null
+
+      - name: from_stage
+        description: "Stage candidates are in on that day."
+        tests:
+          - not_null
+
+      - name: entered_candidates
+        description: "Candidates who entered the stage on that day."
+        tests:
+          - not_null
+
+      - name: progressed_candidates
+        description: "Candidates who progressed to the next stage on that day."
+        tests:
+          - not_null
+
+      - name: stage_conversion_rate
+        description: "Conversion rate from stage to next stage."
+        tests:
+          - not_null
+
+      - name: stage_dropoff_rate
+        description: "Drop-off rate for the stage (1 - conversion rate)."
+        tests:
+          - not_null
+
+  - name: fct_top_dropoff_stage_daily
+    description: "Top drop-off stage per day (highest drop-off rate). Executive KPI summary."
+    columns:
+      - name: event_date
+        description: "Date of the funnel events."
+        tests:
+          - not_null
+
+      - name: top_dropoff_stage
+        description: "Stage with the highest drop-off rate on that day."
+        tests:
+          - not_null
+
+      - name: top_dropoff_rate
+        description: "Highest drop-off rate value for that day."
         tests:
           - not_null
 
