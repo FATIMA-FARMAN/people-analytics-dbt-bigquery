@@ -124,3 +124,26 @@ models:
         tests:
           - not_null
 
+  - name: fct_worst_conversion_transition_daily
+    description: "Worst performing stage-to-stage conversion transition per day (lowest conversion rate)."
+    columns:
+      - name: event_date
+        description: "Date of the conversion transition."
+        tests:
+          - not_null
+
+      - name: from_stage
+        description: "Starting stage."
+        tests:
+          - not_null
+
+      - name: to_stage
+        description: "Next stage."
+        tests:
+          - not_null
+
+      - name: conversion_rate
+        description: "Conversion rate from from_stage to to_stage for that day."
+        tests:
+          - not_null
+
