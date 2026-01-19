@@ -147,3 +147,26 @@ models:
         tests:
           - not_null
 
+  - name: fct_overall_funnel_conversion_daily
+    description: "Daily overall funnel conversion rate (progressed / entered). Executive KPI summary."
+    columns:
+      - name: event_date
+        description: "Date of the funnel events."
+        tests:
+          - not_null
+
+      - name: total_entered_candidates
+        description: "Total candidates who entered any transition stage on that day."
+        tests:
+          - not_null
+
+      - name: total_progressed_candidates
+        description: "Total candidates who progressed to the next stage on that day."
+        tests:
+          - not_null
+
+      - name: overall_conversion_rate
+        description: "Overall funnel conversion rate for the day."
+        tests:
+          - not_null
+
