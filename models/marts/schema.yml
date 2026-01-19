@@ -170,3 +170,26 @@ models:
         tests:
           - not_null
 
+
+  - name: fct_stage_dropoff_counts_daily
+    description: "Daily drop-off counts per stage (entered vs progressed) + dropoff rate."
+    columns:
+      - name: event_date
+        tests:
+          - not_null
+
+      - name: stage
+        tests:
+          - not_null
+
+      - name: total_entered_candidates
+        tests:
+          - not_null
+
+      - name: dropped_candidates
+        tests:
+          - not_null
+
+      - name: dropoff_rate
+        tests:
+          - not_null
