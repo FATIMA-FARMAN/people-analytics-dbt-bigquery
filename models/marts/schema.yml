@@ -193,3 +193,14 @@ models:
       - name: dropoff_rate
         tests:
           - not_null
+
+  - name: fct_top_stage_dropoff_reason_daily
+    description: "Daily top stage drop-off reason (worst stage by dropoff rate)."
+    columns:
+      - name: event_date
+        tests: [not_null]
+      - name: top_stage_dropoff
+        tests: [not_null]
+      - name: top_dropoff_rate
+        tests: [not_null]
+
