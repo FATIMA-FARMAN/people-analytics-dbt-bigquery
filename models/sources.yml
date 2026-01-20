@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: people_analytics
+    database: core-rhythm-462516-n5
+    schema: people_analytics
+    tables:
+      - name: fact_stage_events

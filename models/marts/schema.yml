@@ -204,3 +204,19 @@ models:
       - name: top_dropoff_rate
         tests: [not_null]
 
+  - name: fct_worst_dropoff_reason_daily
+    description: "Worst (highest count) drop-off reason per day."
+    columns:
+      - name: event_date
+        tests:
+          - not_null
+      - name: stage
+        tests:
+          - not_null
+      - name: dropoff_reason
+        tests:
+          - not_null
+      - name: dropoff_candidates
+        tests:
+          - not_null
+
