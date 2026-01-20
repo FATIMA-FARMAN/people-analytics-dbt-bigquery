@@ -67,7 +67,16 @@ Add screenshots into `docs/screenshots/` and reference them here (Airflow UI run
 Airflow DAG executed successfully (dbt deps → dbt run → dbt test):
 
 ![Airflow DAG Proof](docs/screenshots/08_airflow_ui_dag_loaded.png)
+### Day 10 — Airflow DAG Orchestration (SUCCESS)
 
+**Airflow DAG:** `dbt_people_analytics_daily`  
+Tasks: `dbt_deps → dbt_run_full_refresh → dbt_test`
+
+**Graph View**
+![Airflow DAG Graph](proof/10_airflow_dag_success_graph.png)
+
+**Successful Run**
+![Airflow DAG Success Run](proof/10_airflow_dag_success_run.png)
 ![dbt CI (PR checks)](https://github.com/FATIMA-FARMAN/people-analytics-dbt-bigquery/actions/workflows/ci.yml/badge.svg)
 ![dbt CI (PR checks)](https://github.com/FATIMA-FARMAN/people-analytics-dbt-bigquery/actions/workflows/ci.yml/badge.svg)
 ![dbt CI (PR checks)](https://github.com/FATIMA-FARMAN/people-analytics-dbt-bigquery/actions/workflows/ci.yml/badge.svg)
