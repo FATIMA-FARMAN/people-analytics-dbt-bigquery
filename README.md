@@ -48,6 +48,12 @@ Add screenshots into `docs/screenshots/` and reference them here (Airflow UI run
 ## Proof (Git Clean State)
 ![git status clean](docs/screenshots/01_git_status_clean.png)
 
+## Proof / Evidence
+
+✅ dbt tests passing (PASS=46, ERROR=0)
+![dbt tests passing](proof/09_dbt_test_all_pass_46.png)
+
+
 ## Airflow Orchestration Proof
 
 **Airflow DAGs registered**
